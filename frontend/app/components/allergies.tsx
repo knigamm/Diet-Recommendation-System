@@ -82,7 +82,9 @@ const AllergiesInfo = ({setProfileNumber}) => {
         </CardContent>
       </Card>
 
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <Button onClick={()=>{setProfileNumber((init)=>init-1)}} className="bg-primary text-primary-foreground">Back</Button>
+
         <Button onClick={()=>{setProfileNumber((init)=>init+1)}} className="bg-primary text-primary-foreground">Next</Button>
       </div>
     </>
