@@ -27,6 +27,19 @@ async def create_user(user_data: CreateUserModel, session: AsyncSession = Depend
     
     return Response(content="successful", status_code=status.HTTP_201_CREATED)
 
+@user_router.get("/", response_model = User)
+async def get_user_data(request: Request, session: AsyncSession = Depends(get_session)):
+    user = request.state.user
+    
+    if user:
+        uid = user.uid
+        user_data = await user_services.get_user_by_uid(uid, session)
+        
+        return user_data
+    
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
 @user_router.patch("/", response_model=User, status_code=status.HTTP_200_OK)
 async def update_profile(request: Request,update_data: UpdateUserModel, session: AsyncSession = Depends(get_session)):
     
@@ -66,16 +79,3 @@ async def login_for_access_toekn(
         "token_type": "bearer",
         "is_admin": user_in_db.is_admin,
     }
-    
-@user_router.get("/", response_model = User)
-async def get_user_data(request: Request, session: AsyncSession = Depends(get_session)):
-    user = request.state.user
-    
-    if user:
-        uid = user.uid
-        user_data = await user_services.get_user_by_uid(uid, session)
-        
-        return user_data
-    
-    else:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
