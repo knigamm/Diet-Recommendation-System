@@ -57,7 +57,7 @@ export const loginaction = async (prevState: any, formdata: FormData) => {
     email: z.string().email({ message: "Enter valid email" }),
     password: z
       .string()
-      .min(5, { message: "Password needs to be longer than length 5" }),
+      .min(8, { message: "Password needs to be longer than length 8" }),
   });
 
   const validatedFields = loginobject.safeParse({
