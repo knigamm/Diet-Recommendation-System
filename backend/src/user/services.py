@@ -1,7 +1,8 @@
+import datetime
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from .utils import generate_password_hash
-from .schemas import CreateUserModel
+from .utils import generate_password_hash, verify_password
+from .schemas import CreateUserModel, UpdateUserModel
 from .model import User
 
 class UserServices:
@@ -33,3 +34,42 @@ class UserServices:
         await session.commit()
         
         return new_user
+    
+    async def get_user_by_uid(self, uid: str, session: AsyncSession):
+        statement = select(User).where(User.uid == uid)
+        
+        result = await session.execute(statement)
+        user = result.scalar()
+        if user is None:
+            return None
+        return user
+    
+    async def update_user(self,uid :str, update_data: UpdateUserModel, session: AsyncSession):
+        user_to_update = await self.get_user_by_uid(uid, session)
+        
+        if user_to_update is not None:
+            update_data_dict = update_data.dict(exclude_unset=True)
+            
+            print("---------------", update_data_dict)
+            
+            for k, v in update_data_dict.items():
+                setattr(user_to_update, k ,v)
+                
+            user_to_update.updated_at = datetime.now()
+            
+            await session.commit()
+            
+            return user_to_update
+        else:
+            return None
+        
+    async def authenticate_user(self, email: str, password: str, session: AsyncSession):
+        user = await self.get_user_by_email(email, session)
+        
+        if not user:
+            return False
+        
+        if not verify_password(password, user.password_hash):
+            return False
+        
+        return user

@@ -13,7 +13,7 @@ class UpdateUserModel(BaseModel):
     last_name: str = Field(max_length=20)
     email: str
     gender: str
-    data_of_birth: date
+    date_of_birth: date
     is_admin: bool
     profile_complete: bool
     weight: float
@@ -21,3 +21,7 @@ class UpdateUserModel(BaseModel):
     dietary_preferences: str
     allergies: str
     health_goals: str
+    
+class LoginUserModel(BaseModel):
+    email: str
+    password: str
