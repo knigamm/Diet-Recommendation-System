@@ -5,6 +5,7 @@
  */
 "use client"
 
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
@@ -200,6 +201,79 @@ export default function Component() {
           </div>
         </div>
       </div>
+      <div className="grid gap-4">
+          <h2 className="text-lg font-semibold">Nutritional Intake</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Calories</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold">1,200</span>
+                  <span className="text-sm text-muted-foreground">/ 1,500</span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-2 mt-2">
+                  <div
+                    className="bg-primary h-2 rounded-full"
+                    style={{ width: "80%" }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Protein</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold">80g</span>
+                  <span className="text-sm text-muted-foreground">/ 100g</span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-2 mt-2">
+                  <div
+                    className="bg-secondary h-2 rounded-full"
+                    style={{ width: "80%" }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Carbs</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold">150g</span>
+                  <span className="text-sm text-muted-foreground">/ 200g</span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-2 mt-2">
+                  <div
+                    className="bg-accent h-2 rounded-full"
+                    style={{ width: "75%" }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Fats</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold">50g</span>
+                  <span className="text-sm text-muted-foreground">/ 65g</span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-2 mt-2">
+                  <div
+                    className="bg-muted-foreground h-2 rounded-full"
+                    style={{ width: "75%" }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
     </div>
   )
 }
