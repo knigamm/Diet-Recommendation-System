@@ -3,7 +3,7 @@ from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from .utils import generate_password_hash, verify_password
 from .schemas import CreateUserModel, UpdateUserModel
-from .model import User
+from .models import User
 
 class UserServices:
     
@@ -48,7 +48,7 @@ class UserServices:
         user_to_update = await self.get_user_by_uid(uid, session)
         
         if user_to_update is not None:
-            update_data_dict = update_data.dict(exclude_unset=True)
+            update_data_dict = update_data.model_dump()
             
             for k, v in update_data_dict.items():
                 setattr(user_to_update, k ,v)
@@ -72,3 +72,18 @@ class UserServices:
         
         return user
     
+    async def get_user_profile(self, uid: str, session: AsyncSession):
+        statement = select(
+            User.height,
+            User.weight,
+            User.health_goals,
+            User.activity,
+            User.age,
+            User.gender
+        ).where(User.uid == uid)
+        
+        result = await session.execute(statement)
+        profile = result.one_or_none()
+        if profile is None:
+            return None
+        return profile

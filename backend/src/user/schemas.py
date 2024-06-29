@@ -13,11 +13,12 @@ class UpdateUserModel(BaseModel):
     last_name: str = Field(max_length=20)
     email: str
     gender: str
-    date_of_birth: date
+    age: int
     is_admin: bool
     profile_complete: bool
     weight: float
     height: float
+    activity: str
     dietary_preferences: str
     allergies: str
     health_goals: str

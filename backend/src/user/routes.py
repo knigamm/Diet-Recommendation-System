@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, Request, Response, status, Depends
 from src.config import Config
 from src.db.main import get_session
 from .utils import create_access_token
-from .model import User
+from .models import User
 from .services import UserServices
 from .schemas import CreateUserModel, LoginUserModel, UpdateUserModel
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -41,7 +41,7 @@ async def get_user_data(request: Request, session: AsyncSession = Depends(get_se
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 @user_router.patch("/", response_model=User, status_code=status.HTTP_200_OK)
-async def update_profile(request: Request,update_data: UpdateUserModel, session: AsyncSession = Depends(get_session)):
+async def update_profile(request: Request, update_data: UpdateUserModel, session: AsyncSession = Depends(get_session)):
     
     user = request.state.user
     

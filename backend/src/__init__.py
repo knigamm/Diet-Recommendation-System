@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import JSONResponse
 from src.user.routes import user_router
+from src.macros.routes import macros_router
 from src.user.utils import decode_token
 
 app = FastAPI(
@@ -33,3 +34,4 @@ async def check_token(request: Request, call_next):
 
 
 app.include_router(user_router, prefix="/api/user", tags = "User")
+app.include_router(macros_router, prefix="/api/macros", tags = "Macros")

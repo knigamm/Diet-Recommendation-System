@@ -6,7 +6,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
-from src.user.model import User
+from src.user.models import User
+from src.macros.models import MacrosTracker, TargetMacros
 from src.config import Config
 from sqlmodel import SQLModel
 

@@ -20,7 +20,7 @@ class User(SQLModel, table=True):
     last_name: str
     email: str = Field(unique=True, nullable=False)
     gender: Optional[str] = Field(max_length=10)
-    date_of_birth: Optional[date]
+    age: Optional[int]
     weight: Optional[float] = Field(default=None)
     height: Optional[float] = Field(default=None)
     dietary_preferences: Optional[str] = Field(default=None)
@@ -29,5 +29,6 @@ class User(SQLModel, table=True):
     password_hash: str = Field(exclude=True)
     is_admin: bool = Field(default=False)
     profile_complete: bool = Field(default=False)
+    activity: Optional[str] = Field(default=None)
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
