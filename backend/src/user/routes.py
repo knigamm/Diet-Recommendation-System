@@ -40,7 +40,7 @@ async def get_user_data(request: Request, session: AsyncSession = Depends(get_se
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-@user_router.patch("/", response_model=User, status_code=status.HTTP_200_OK)
+@user_router.patch("/update", response_model=User, status_code=status.HTTP_200_OK)
 async def update_profile(request: Request, update_data: UpdateUserModel, session: AsyncSession = Depends(get_session)):
     
     user = request.state.user
