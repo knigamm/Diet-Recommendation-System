@@ -1,10 +1,36 @@
+'use client'
+
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+
+import { loginaction } from "@/app/actions/authactions";
+
 import Link from "next/link";
 
+import { useFormStatus, useFormState } from "react-dom";
+
+const initialState = {
+  errors: {},
+};
+
+const Submitbutton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <>
+      <Button type="submit" className="w-full" disabled={pending}>
+        {pending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+        Sign in
+      </Button>
+    </>
+  );
+};
+
 const LoginPage = () => {
+
+    const [state,formAction] = useFormState(loginaction,initialState)
+
   return (
     <>
       <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
@@ -18,11 +44,9 @@ const LoginPage = () => {
                 Enter your username and password to access your account.
               </p>
             </div>
-            <form className="space-y-4">
+            <form action={formAction} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">
-                  Email
-                </Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   name="email"
@@ -31,11 +55,14 @@ const LoginPage = () => {
                   className="w-full"
                   required
                 />
+                {state?.errors?.email && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {state?.errors?.email}
+                  </div>
+                )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">
-                  Password
-                </Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -44,10 +71,13 @@ const LoginPage = () => {
                   className="w-full"
                   required
                 />
+                {state?.errors?.password && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {state?.errors?.password}
+                  </div>
+                )}
               </div>
-              <Button type="submit" className="w-full">
-                Sign in
-              </Button>
+              <Submitbutton />
             </form>
             <div className="text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
