@@ -134,7 +134,7 @@ export default function DashboardLayout({
         <aside className="flex flex-col border-r bg-background p-4">
           <div className="flex items-center gap-2">
             <MountainIcon className="h-6 w-6" />
-            <span className="text-lg font-semibold">Diet Recommender</span>
+            <span className="text-lg font-semibold">NutriTrack</span>
           </div>
           <nav className="mt-8 flex flex-col gap-2">
             <Link

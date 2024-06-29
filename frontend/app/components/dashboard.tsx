@@ -11,6 +11,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { Trash2 } from 'lucide-react';
 
 export default function Component() {
   const [breakfastItems, setBreakfastItems] = useState([
@@ -37,9 +38,20 @@ export default function Component() {
   const addDinnerItem = (item) => {
     setDinnerItems([...dinnerItems, item])
   }
+
+  const removeItem = (meal, index) => {
+    if (meal === "breakfast") {
+      setBreakfastItems(breakfastItems.filter((_, i) => i !== index))
+    } else if (meal === "lunch") {
+      setLunchItems(lunchItems.filter((_, i) => i !== index))
+    } else if (meal === "dinner") {
+      setDinnerItems(dinnerItems.filter((_, i) => i !== index))
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold mb-6">My Meal Plan</h1>
+      <h1 className="text-3xl font-bold mb-6">Today's Meals</h1>
       <div className="grid gap-8 md:grid-cols-3">
         <div className="bg-card rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
@@ -90,6 +102,9 @@ export default function Component() {
             {breakfastItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <span>{`${item.quantity} ${item.unit} ${item.item}`}</span>
+                <Button variant="ghost" size="icon" onClick={() => removeItem("breakfast", index)}>
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
             ))}
           </div>
@@ -143,6 +158,9 @@ export default function Component() {
             {lunchItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <span>{`${item.quantity} ${item.unit} ${item.item}`}</span>
+                <Button variant="ghost" size="icon" onClick={() => removeItem("lunch", index)}>
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
             ))}
           </div>
@@ -196,13 +214,16 @@ export default function Component() {
             {dinnerItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <span>{`${item.quantity} ${item.unit} ${item.item}`}</span>
+                <Button variant="ghost" size="icon" onClick={() => removeItem("dinner", index)}>
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className="grid gap-4">
-          <h2 className="text-lg font-semibold">Nutritional Intake</h2>
+      <div className="grid gap-4 mt-20">
+      <h1 className="text-3xl font-bold mb-6">Nutritional Intake</h1>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card>
               <CardHeader>
