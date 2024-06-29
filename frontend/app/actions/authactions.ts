@@ -3,6 +3,8 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
+import getuserdetails from "./getuserdetails";
+
 import { z } from "zod";
 
 const MAX_AGE = 60 * 60 * 24 * 7;
@@ -53,6 +55,7 @@ export const signupaction = async (
 };
 
 export const loginaction = async (prevState: any, formdata: FormData) => {
+  let userhasprofile = false;
   const loginobject = z.object({
     email: z.string().email({ message: "Enter valid email" }),
     password: z
@@ -85,10 +88,20 @@ export const loginaction = async (prevState: any, formdata: FormData) => {
       httpOnly: true,
       maxAge: MAX_AGE,
     });
+
+    const userdata = await getuserdetails();
+    if (userdata.profile_complete) {
+      userhasprofile = true;
+    }
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong");
   }
+
+  if (userhasprofile) {
+    redirect("/dashboard");
+  }
+
   redirect("/profile");
 };
 
