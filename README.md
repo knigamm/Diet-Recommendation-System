@@ -1,4 +1,4 @@
-# Diet-Recommendation-System
+# NutriTrack (Diet-Recommendation-System)
 
 ## Technologies used:
 
