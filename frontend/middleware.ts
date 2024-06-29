@@ -4,12 +4,17 @@ import getSession from "./app/utils/getSession";
 
 export function middleware(request: NextRequest) {
   const sessionData = getSession();
-
-  if (!['/login', '/signup'].includes(request.nextUrl.pathname) && !sessionData) {
+  if (request.nextUrl.pathname === "/") {
+    return NextResponse.next();
+  }
+  if (
+    !["/login", "/signup"].includes(request.nextUrl.pathname) &&
+    !sessionData
+  ) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (['/login', '/signup'].includes(request.nextUrl.pathname) && sessionData) {
+  if (["/login", "/signup"].includes(request.nextUrl.pathname) && sessionData) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -17,5 +22,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher:['/((?!api|_next/static|_next/image|favicon.ico).*)']
-}
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
