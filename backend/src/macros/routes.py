@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from src.db.main import get_session
+from src.macros.schemas import UpdateMacrosModel
 from .services import MacrosServices
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -47,3 +48,43 @@ async def update_target(request: Request, session: AsyncSession = Depends(get_se
         return updated_macros
     else:
         raise HTTPException(status_code=status.HTTP_202_ACCEPTED)
+    
+@macros_router.post("/", status_code=status.HTTP_201_CREATED)
+async def create_todays_macros(request: Request, macros_data: UpdateMacrosModel, session: AsyncSession = Depends(get_session)):
+    user = request.state.user
+    
+    if user:
+        user_id = user.uid
+        new_macros = await macros_services.add_todays_macros(user_id, macros_data, session)
+        
+        if new_macros is None:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT)
+        
+        return new_macros
+    
+@macros_router.get("/getmacros")
+async def get_todays_macros(request: Request, session: AsyncSession = Depends(get_session)):
+    user = request.state.user
+    
+    if user:
+        user_id = user.uid
+        
+        macros = await macros_services.get_todays_macros(user_id, session)
+        
+        if macros is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        
+        return macros
+    
+@macros_router.patch("/updatemacros")
+async def update_todays_macros(request: Request, macros_data: UpdateMacrosModel, session: AsyncSession = Depends(get_session)):
+    user = request.state.user
+    
+    if user:
+        user_id = user.uid
+        updated_macros = await macros_services.update_todays_macros(user_id, macros_data, session)
+        
+        if updated_macros is None:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+        
+        return updated_macros
