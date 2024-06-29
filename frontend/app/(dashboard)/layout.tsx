@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Collapsible,
@@ -13,6 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Salad } from "lucide-react";
+
+import { logoutaction } from "../actions/authactions";
 
 function CalendarIcon(props) {
   return (
@@ -121,6 +125,9 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const handlelogout = () => {
+    logoutaction();
+  };
   return (
     <>
       <div className="flex min-h-screen">
@@ -201,7 +208,7 @@ export default function DashboardLayout({
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
                 <Link
-                  href="/profile"
+                  href="/myprofile"
                   className="flex items-center gap-2"
                   prefetch={false}
                 >
@@ -209,15 +216,11 @@ export default function DashboardLayout({
                   <span>My Profile</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link
-                  href="#"
-                  className="flex items-center gap-2"
-                  prefetch={false}
-                >
-                  <div className="h-4 w-4" />
-                  <span>Log out</span>
-                </Link>
+              <DropdownMenuItem onSelect={handlelogout}>
+                <div className="flex items-center gap-2">
+                <div className="h-4 w-4" />
+                <span>Log out</span>
+                </div>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
