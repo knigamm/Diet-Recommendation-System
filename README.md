@@ -5,7 +5,11 @@
 ### Frontend:
 * Next JS
 * Tailwind CSS
+* React
 
+### API:
+* Edmam API
+* 
 ### Backend:
 * FastAPI
 
