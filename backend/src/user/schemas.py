@@ -25,3 +25,7 @@ class UpdateUserModel(BaseModel):
 class LoginUserModel(BaseModel):
     email: str
     password: str
+    
+class TokenData(BaseModel):
+    uid: str
+    is_admin: bool

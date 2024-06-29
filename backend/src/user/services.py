@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from .utils import generate_password_hash, verify_password
@@ -50,8 +50,6 @@ class UserServices:
         if user_to_update is not None:
             update_data_dict = update_data.dict(exclude_unset=True)
             
-            print("---------------", update_data_dict)
-            
             for k, v in update_data_dict.items():
                 setattr(user_to_update, k ,v)
                 
@@ -73,3 +71,4 @@ class UserServices:
             return False
         
         return user
+    
