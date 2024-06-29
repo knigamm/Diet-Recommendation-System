@@ -5,14 +5,15 @@
 ### Frontend:
 * Next JS
 * Tailwind CSS
-* React
 
-### API:
-* Edmam API
-* 
 ### Backend:
 * FastAPI
 
+### Database:
+* PostgreSQL
+
+## Third Party API Integration:
+* Edaman 
 
 ### Team:
 * Aum Sahayata
