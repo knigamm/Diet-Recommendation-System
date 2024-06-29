@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Trash2 } from 'lucide-react';
+import getSession from "../utils/getSession"
 
 export default function Component() {
   const [breakfastItems, setBreakfastItems] = useState([
