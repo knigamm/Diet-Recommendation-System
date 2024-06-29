@@ -138,7 +138,7 @@ export default function DashboardLayout({
           </div>
           <nav className="mt-8 flex flex-col gap-2">
             <Link
-              href="#"
+              href="/dashboard"
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground"
               prefetch={false}
             >
@@ -146,7 +146,7 @@ export default function DashboardLayout({
               Dashboard
             </Link>
             <Link
-              href="/dashboard"
+              href="/myplan"
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground"
               prefetch={false}
             >
@@ -165,21 +165,21 @@ export default function DashboardLayout({
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground"
                   prefetch={false}
                 >
-                  Build a plan for me
+                  Nutritionist's Choice
                 </Link>
                 <Link
                   href="#"
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground"
                   prefetch={false}
                 >
-                  Dietitian
+                  Smart AI Plan
                 </Link>
                 <Link
                   href="#"
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground"
                   prefetch={false}
                 >
-                  Make your own
+                  Create Your Own Plan
                 </Link>
               </CollapsibleContent>
             </Collapsible>
